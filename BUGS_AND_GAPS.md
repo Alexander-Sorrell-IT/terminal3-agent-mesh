@@ -150,3 +150,71 @@ Each identity needs its own ≥10,000 balance to act, and there is no transfer/m
 
 ### BUG-I (doc) — `host-api.md` + outbound-http tip omit the actual API surface
 [VERIFIED-DOC] host-api.md is prose only (no WIT world, no `kv-store`/`logging::audit` signatures); the exact `logging::audit` signature exists nowhere in docs or SDK. **Fix:** publish the WIT worlds + host-call signatures on host-api.md.
+
+## ADDITIONAL FINDINGS (exhaustive sweep)
+
+### BUG-P — `setNodeUrl` is exported by the SDK but absent from the README
+[VERIFIED-DOC/SDK · low] `node_modules/@terminal3/t3n-sdk/dist/index.d.ts:2946` declares `declare function setNodeUrl(url: string | null): void;` and the runtime export block at line 3188 lists `setNodeUrl` (`..., setEnvironment, setGlobalLogLevel, setNodeUrl, signAgentInvocation, ...`). `grep -c setNodeUrl node_modules/@terminal3/t3n-sdk/README.md` returns `0`. The README's Environments section documents `setEnvironment` and an explicit `baseUrl` on `new T3nClient(...)`, but never mentions `setNodeUrl`, which (per its own JSDoc at index.d.ts:2937-2946) clears the per-URL ML-KEM key cache and overrides the node URL per process. (Note: `getNodeUrl` is also absent — `grep -c getNodeUrl README.md` = 0 — so the only documented node-selection paths are `setEnvironment` / `baseUrl`.)
+**Why it's a bug:** A public, exported function for per-process node-URL override + forced key-cache refresh is invisible to anyone reading the docs; it can only be discovered by reading the `.d.ts`.
+**Fix:** Document `setNodeUrl(url | null)` (and `getNodeUrl()`) in the README Environments section, noting that passing `null` reverts to the environment default and that the call clears the cached ML-KEM public key.
+
+### BUG-Q — `loadConfig` and `validateConfig` are exported but undocumented
+[VERIFIED-DOC/SDK · low] `index.d.ts:2907` declares `declare function validateConfig(config: unknown): ConfigValidationResult;` and `index.d.ts:2981` declares `declare function loadConfig(baseUrl?: string): SdkConfig;`. Both appear in the runtime export block at line 3188 (`..., loadConfig, ...` and `..., validateConfig, ...`), and the supporting types `SdkConfig` (index.d.ts:2825) and `ConfigValidationResult` (index.d.ts:2836) are re-exported at line 3189. `grep -c loadConfig README.md` = 0 and `grep -c validateConfig README.md` = 0 against `node_modules/@terminal3/t3n-sdk/README.md`.
+**Why it's a bug:** These config-loading/validation utilities are part of the published API surface but have no documented entry point, so docs-only developers cannot discover how to load or validate SDK configuration.
+**Fix:** Add a Configuration subsection to the README: `loadConfig(baseUrl?)` loads SDK config from the node and returns an `SdkConfig`; `validateConfig(config)` validates a config object and returns a `ConfigValidationResult` before use.
+
+### BUG-R — `TenantBaseClient` is a public, exported interface but is undocumented
+[VERIFIED-DOC/SDK · low] `node_modules/@terminal3/t3n-sdk/dist/index.d.ts:2991-3000` defines `interface TenantBaseClient { execute(...): Promise<string>; executeWithBlob(...): Promise<string>; executeAndDecode?<T>(...): Promise<T>; getUsage?(...): Promise<UsagePage>; }`; it is the type of `TenantClientConfig.t3n` at line 3005 (`t3n?: TenantBaseClient;`) and is exported as a public type at line 3189 (appears in the `export type { ... }` block). `grep -n TenantBaseClient node_modules/@terminal3/t3n-sdk/README.md` returns no match (the README never mentions `TenantClient`, `TenantClientConfig`, or `TenantBaseClient` at all).
+**Why it's a bug:** The JSDoc itself (index.d.ts:2985-2989) calls out mock-injection and control-plane-only clients as use cases, yet anyone building a custom or mock base client must reverse-engineer the required interface from the `.d.ts` because no documentation describes the contract a `T3nClient` must satisfy for `TenantClient`.
+**Fix:** Document that `TenantClient` accepts an optional `t3n` that must satisfy `TenantBaseClient` (`execute`, `executeWithBlob`, optional `executeAndDecode`, optional `getUsage`); for the common path pass an authenticated `T3nClient`.
+
+### BUG-S — `WriteDataInput` lets both `entryId` and `clientSeqNo` be undefined, though the JSDoc requires one (type-vs-doc divergence)
+[VERIFIED-SDK · medium] `node_modules/@terminal3/t3n-sdk/dist/index.d.ts:2504-2511`:
+```
+interface WriteDataInput {
+    orgDid: string;
+    scope: string;
+    payloadHex: string;
+    /** Explicit entry ID (32 hex chars). When present, enables idempotent upsert. */
+    entryId?: string;
+    /** Client-supplied monotonic counter for ID derivation when `entryId` is absent. */
+    clientSeqNo?: number;
+}
+```
+The `writeData` JSDoc (index.d.ts:2627-2634) states: "When absent, `clientSeqNo` is required and the entry ID is derived via SHA-256 from `(org_did, scope, writer_did, client_seq_no)`." Both fields are typed optional, so `{ orgDid, scope, payloadHex }` (neither set) compiles, deferring the documented invariant to a runtime/server rejection. Same surface on `SessionOrgDataClient.writeData` (index.d.ts:2711).
+**Why it's a bug:** The documented mutual requirement (one of `entryId`/`clientSeqNo`) is not encoded in the type, so a valid-looking call type-checks but fails at runtime.
+**Fix:** Model it as a discriminated union (`{ entryId: string } | { clientSeqNo: number }`) so the compiler enforces "at least one present," or document precedence and validate at runtime with a typed error.
+
+### BUG-T — Typo "withoutc" on the About Terminal 3 page
+[VERIFIED-DOC · nit] `https://docs.terminal3.io/intro/about-t3`, under the National Digital ID section, renders verbatim: "...can be accepted at borders, airline check-ins, and public service access points **withoutc** physical document checks." (confirmed live; the string `withoutc` is present in the rendered page).
+**Why it's a bug:** Misspelling of "without" (extraneous trailing `c`, no following space in source) on a public overview page; impacts readability/professionalism.
+**Fix:** Change "withoutc" to "without" on the about-t3 page.
+
+### BUG-U — The two OpenAPI spec URLs published in `llms.txt` both return HTTP 404 (dead links)
+[VERIFIED-DOC/OPENAPI · medium] `https://docs.terminal3.io/llms.txt` lines 39-42 contain a dedicated section:
+```
+## OpenAPI Specs
+- [terminal-3-openapi](https://docs.terminal3.io/terminal-3-openapi.yml)
+- [openapi](https://docs.terminal3.io/api-reference/openapi.json)
+```
+Both linked URLs are dead: `curl -sIL https://docs.terminal3.io/terminal-3-openapi.yml` → `HTTP/2 404`, and `curl -sIL https://docs.terminal3.io/api-reference/openapi.json` → `HTTP/2 404` (no `Location` redirect; terminal 404, not a soft-404). (Distinct from BUG-01's doc-page 404 and from BUG-04's redirect; this is the machine-readable spec index.)
+**Why it's a bug:** The official docs index advertises canonical OpenAPI spec files that do not resolve, breaking automated tooling (code generators, MCP/agent consumers that read `llms.txt`) that would consume the spec from these stable URLs.
+**Fix:** Publish the OpenAPI YAML/JSON at the listed URLs, or remove/repoint the dead links in `llms.txt` (and mark "Coming soon" if not yet public).
+
+### GAP-11 — `WriteDataInput.clientSeqNo` has no documented bounds
+[VERIFIED-DOC · nit] `node_modules/@terminal3/t3n-sdk/dist/index.d.ts:2510-2511`: `/** Client-supplied monotonic counter for ID derivation when `entryId` is absent. */ clientSeqNo?: number;`. The one-line comment gives no min/max and does not state whether 0, negative, or non-integer values are valid; the only further context is the `writeData` JSDoc (index.d.ts:2631) that it feeds a SHA-256 entry-ID derivation.
+**Why it's a gap:** "Monotonic counter" implies an ascending positive sequence, but the type and docs permit any `number`, with no stated valid range or worked example for callers.
+**Fix:** Document the expected range (e.g., positive integer `> 0`, `< 2^53`) and note it is hashed into `SHA-256(org_did, scope, writer_did, client_seq_no)`; optionally add a validation helper.
+
+### GAP-12 — `CreatePolicyInput.maxAdmins` is optional with no documented default or constraint
+[VERIFIED-DOC · nit] `node_modules/@terminal3/t3n-sdk/dist/index.d.ts:2480-2483`:
+```
+interface CreatePolicyInput {
+    orgDid: string;
+    initialAdminDid: string;
+    maxAdmins?: number;
+}
+```
+None of the three fields carry JSDoc, and `maxAdmins?` has no inline comment. The `createPolicy` JSDoc never states what omitting `maxAdmins` does, nor any server default/floor/ceiling. The effective cap surfaces only later via the documented `OrgPolicyMeta.max_admins` (index.d.ts:718).
+**Why it's a gap:** Callers cannot tell whether omitting `maxAdmins` inherits an org default or whether the server enforces a min/max, so policy construction relies on trial-and-error.
+**Fix:** Add JSDoc stating the server default, the valid range, and the meaning of omission (e.g., "When omitted, the server applies its default cap").

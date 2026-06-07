@@ -59,7 +59,7 @@ npm run report       # render the HTML/PNG report
 | `src/agent-buyer.ts` | The autonomous LLM buyer agent |
 | `src/mesh-setup.ts` · `src/mesh-demo.ts` | Setup + scripted governance demo |
 | `SUBMISSION.md` | Full writeup (problem, architecture, honest scope, trust model) |
-| `BUGS_AND_GAPS.md` | ~32 developer-experience findings filed during the build (the $200 track) |
+| `BUGS_AND_GAPS.md` | ~40 developer-experience findings filed during the build (the $200 track) |
 
 ## Honest scope
 

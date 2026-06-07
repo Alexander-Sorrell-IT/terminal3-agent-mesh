@@ -35,7 +35,7 @@ The live demo runs both roles under one funded testnet identity (self-governance
 ## Links
 - Code + writeup: `SUBMISSION.md`
 - Demo report image: `demo-report.png`
-- Developer-experience findings (for the $200 track): `BUGS_AND_GAPS.md` (~32 bugs & doc gaps, many empirically verified against the live SDK)
+- Developer-experience findings (for the $200 track): `BUGS_AND_GAPS.md` (~40 bugs & doc gaps, many empirically verified against the live SDK)
 
 ## How to run
 > Note: judges will likely **watch the demo video** rather than run it — reproducing requires a *funded* Terminal 3 testnet key (claim-gated) and the Rust→wasm toolchain. Full steps for the curious:

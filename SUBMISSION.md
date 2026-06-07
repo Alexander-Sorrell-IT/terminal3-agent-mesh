@@ -99,4 +99,4 @@ This is the literal demonstration of T3's enterprise thesis — governed, bounde
 
 ---
 
-*See `BUGS_AND_GAPS.md` for the developer-experience findings filed during this build (the $200 track): ~32 bugs and documentation gaps, many empirically verified against the live SDK.*
+*See `BUGS_AND_GAPS.md` for the developer-experience findings filed during this build (the $200 track): ~40 bugs and documentation gaps, many empirically verified against the live SDK.*
