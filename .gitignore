@@ -16,3 +16,6 @@ target/
 
 # Vendored T3 reference clone (not our code; deps already copied into contracts/*/wit/deps)
 reference/
+cast.html
+logo.html
+.rec/
