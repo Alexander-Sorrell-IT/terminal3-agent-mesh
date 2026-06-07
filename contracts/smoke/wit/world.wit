@@ -1,0 +1,23 @@
+/// Minimal smoke-test contract: proves register -> invoke works end-to-end.
+/// Zero host imports (pure compute) so it needs no capability grants.
+/// Mirrors the reference repo's `contracts` interface convention exactly:
+/// every function takes `generic-input` and returns `result<list<u8>, string>`.
+package z:smoke@0.1.0;
+
+world smoke {
+    export contracts;
+}
+
+interface contracts {
+    /// Standard 3-field envelope the node passes to every contract function.
+    record generic-input {
+        input:        option<list<u8>>,
+        user-profile: option<list<u8>>,
+        context:      option<list<u8>>,
+    }
+
+    /// Echoes back a tiny JSON proving the contract executed in the enclave.
+    /// Input  (JSON, optional): anything.
+    /// Output (JSON): { "pong": true, "echo_len": <n> }
+    ping: func(req: generic-input) -> result<list<u8>, string>;
+}

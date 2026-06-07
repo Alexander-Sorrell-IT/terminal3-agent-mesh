@@ -1,0 +1,43 @@
+/// mesh-seller — the seller agent's TEE contract for Terminal 3 Agent Mesh.
+///
+/// A buyer agent invokes `purchase`. ALL governance is enforced here, inside
+/// the enclave, where the agent cannot tamper with it:
+///   - the caller's identity comes from the host (`calling-user-did`), not the
+///     request body, so an agent cannot impersonate an approved buyer;
+///   - the spend cap is read from the `policy` KV map and enforced in Rust;
+///   - the payment secret is read from the `secrets` KV map INSIDE the enclave
+///     and never crosses the WIT boundary back to the agent (only a masked
+///     proof is returned);
+///   - every decision is appended to a contract-only audit KV map (the owning
+///     tenant retains control-plane access; this is not a third-party-tamper-proof log).
+package z:mesh-seller@0.1.0;
+
+world mesh-seller {
+    import host:tenant/tenant-context@1.0.0;
+    import host:interfaces/logging@2.1.0;
+    import host:interfaces/kv-store@2.1.0;
+
+    export contracts;
+}
+
+interface contracts {
+    record generic-input {
+        input:        option<list<u8>>,
+        user-profile: option<list<u8>>,
+        context:      option<list<u8>>,
+    }
+
+    /// Buyer agent requests a purchase.
+    /// Input  (JSON): { "item": string, "amount_cents": number, "currency": string }
+    /// Output (JSON): { "outcome": "approved"|"denied", ... }
+    purchase: func(req: generic-input) -> result<list<u8>, string>;
+
+    /// Return the audit trail (every decision the contract made) — contract-written
+    /// and append-only; the owning tenant retains control-plane access. Restricted
+    /// to the tenant owner / designated auditors. Output (JSON): { "events": [ ... ] }
+    get-audit: func(req: generic-input) -> result<list<u8>, string>;
+
+    /// Owner-only: clear the `ledger` + `trail` maps (deterministic demo runs).
+    /// Output (JSON): { "reset": true, "cleared": <n> }
+    reset: func(req: generic-input) -> result<list<u8>, string>;
+}

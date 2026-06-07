@@ -1,0 +1,18 @@
+# Secrets — never commit
+.env
+.env.*
+*.key
+
+# Node
+node_modules/
+dist/
+*.log
+
+# Rust
+target/
+
+# macOS
+.DS_Store
+
+# Vendored T3 reference clone (not our code; deps already copied into contracts/*/wit/deps)
+reference/

@@ -1,0 +1,187 @@
+{
+  "title": "Terminal 3 Agent Mesh",
+  "buyerDid": "did:t3n:1b38f2d98ff6d0eddc9ceb0a14d3987544db7577",
+  "contract": "z:1b38f2d98ff6d0eddc9ceb0a14d3987544db7577:mesh_seller",
+  "policy": {
+    "max_per_tx_cents": 100000,
+    "max_total_cents": 30000
+  },
+  "moments": [
+    {
+      "label": "approved",
+      "prompt": "buy GPU-cluster hour ($99)",
+      "result": {
+        "amount_cents": 9900,
+        "buyer": "did:t3n:1b38f2d98ff6d0eddc9ceb0a14d3987544db7577",
+        "cumulative_cents": 9900,
+        "currency": "USD",
+        "item": "GPU-cluster hour",
+        "order_id": "ord-1780779503-11627",
+        "outcome": "approved",
+        "paid_with": "sk_l…****…2a7c",
+        "seq": 11627,
+        "ts": 1780779503
+      }
+    },
+    {
+      "label": "approved",
+      "prompt": "buy GPU-cluster hour ($99)",
+      "result": {
+        "amount_cents": 9900,
+        "buyer": "did:t3n:1b38f2d98ff6d0eddc9ceb0a14d3987544db7577",
+        "cumulative_cents": 19800,
+        "currency": "USD",
+        "item": "GPU-cluster hour",
+        "order_id": "ord-1780779503-11630",
+        "outcome": "approved",
+        "paid_with": "sk_l…****…2a7c",
+        "seq": 11630,
+        "ts": 1780779503
+      }
+    },
+    {
+      "label": "approved",
+      "prompt": "buy GPU-cluster hour ($99)",
+      "result": {
+        "amount_cents": 9900,
+        "buyer": "did:t3n:1b38f2d98ff6d0eddc9ceb0a14d3987544db7577",
+        "cumulative_cents": 29700,
+        "currency": "USD",
+        "item": "GPU-cluster hour",
+        "order_id": "ord-1780779504-11632",
+        "outcome": "approved",
+        "paid_with": "sk_l…****…2a7c",
+        "seq": 11632,
+        "ts": 1780779504
+      }
+    },
+    {
+      "label": "denied",
+      "prompt": "buy GPU-cluster hour ($99) — over cumulative budget",
+      "result": {
+        "amount_cents": 9900,
+        "buyer": "did:t3n:1b38f2d98ff6d0eddc9ceb0a14d3987544db7577",
+        "currency": "USD",
+        "detail": {
+          "max_total_cents": 30000,
+          "spent_cents": 29700
+        },
+        "item": "GPU-cluster hour",
+        "outcome": "denied",
+        "reason": "over_total_budget",
+        "seq": 11634,
+        "ts": 1780779504
+      }
+    },
+    {
+      "label": "denied",
+      "prompt": "buy an entire datacenter ($9,999)",
+      "result": {
+        "amount_cents": 999900,
+        "buyer": "did:t3n:1b38f2d98ff6d0eddc9ceb0a14d3987544db7577",
+        "currency": "USD",
+        "detail": {
+          "max_per_tx_cents": 100000
+        },
+        "item": "entire datacenter",
+        "outcome": "denied",
+        "reason": "over_per_tx_cap",
+        "seq": 11636,
+        "ts": 1780779504
+      }
+    },
+    {
+      "label": "denied",
+      "prompt": "purchase while not on the approved list",
+      "result": {
+        "amount_cents": 500,
+        "buyer": "did:t3n:1b38f2d98ff6d0eddc9ceb0a14d3987544db7577",
+        "currency": "USD",
+        "detail": {},
+        "item": "coffee",
+        "outcome": "denied",
+        "reason": "buyer_not_approved",
+        "seq": 11641,
+        "ts": 1780779505
+      }
+    }
+  ],
+  "auditEvents": [
+    {
+      "amount_cents": 9900,
+      "buyer": "did:t3n:1b38f2d98ff6d0eddc9ceb0a14d3987544db7577",
+      "cumulative_cents": 9900,
+      "currency": "USD",
+      "item": "GPU-cluster hour",
+      "order_id": "ord-1780779503-11627",
+      "outcome": "approved",
+      "paid_with": "sk_l…****…2a7c",
+      "seq": 11627,
+      "ts": 1780779503
+    },
+    {
+      "amount_cents": 9900,
+      "buyer": "did:t3n:1b38f2d98ff6d0eddc9ceb0a14d3987544db7577",
+      "cumulative_cents": 19800,
+      "currency": "USD",
+      "item": "GPU-cluster hour",
+      "order_id": "ord-1780779503-11630",
+      "outcome": "approved",
+      "paid_with": "sk_l…****…2a7c",
+      "seq": 11630,
+      "ts": 1780779503
+    },
+    {
+      "amount_cents": 9900,
+      "buyer": "did:t3n:1b38f2d98ff6d0eddc9ceb0a14d3987544db7577",
+      "cumulative_cents": 29700,
+      "currency": "USD",
+      "item": "GPU-cluster hour",
+      "order_id": "ord-1780779504-11632",
+      "outcome": "approved",
+      "paid_with": "sk_l…****…2a7c",
+      "seq": 11632,
+      "ts": 1780779504
+    },
+    {
+      "amount_cents": 9900,
+      "buyer": "did:t3n:1b38f2d98ff6d0eddc9ceb0a14d3987544db7577",
+      "currency": "USD",
+      "detail": {
+        "max_total_cents": 30000,
+        "spent_cents": 29700
+      },
+      "item": "GPU-cluster hour",
+      "outcome": "denied",
+      "reason": "over_total_budget",
+      "seq": 11634,
+      "ts": 1780779504
+    },
+    {
+      "amount_cents": 999900,
+      "buyer": "did:t3n:1b38f2d98ff6d0eddc9ceb0a14d3987544db7577",
+      "currency": "USD",
+      "detail": {
+        "max_per_tx_cents": 100000
+      },
+      "item": "entire datacenter",
+      "outcome": "denied",
+      "reason": "over_per_tx_cap",
+      "seq": 11636,
+      "ts": 1780779504
+    },
+    {
+      "amount_cents": 500,
+      "buyer": "did:t3n:1b38f2d98ff6d0eddc9ceb0a14d3987544db7577",
+      "currency": "USD",
+      "detail": {},
+      "item": "coffee",
+      "outcome": "denied",
+      "reason": "buyer_not_approved",
+      "seq": 11641,
+      "ts": 1780779505
+    }
+  ],
+  "secretNeverLeaked": true,
+  "network": "Terminal 3 testnet"
+}

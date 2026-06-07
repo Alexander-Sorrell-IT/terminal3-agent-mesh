@@ -1,0 +1,26 @@
+{
+  "name": "t3-agent-bounty",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Terminal 3 Agent Dev Kit bounty submission",
+  "scripts": {
+    "auth": "tsx src/auth-test.ts",
+    "smoke": "tsx src/smoke.ts",
+    "mesh:setup": "tsx src/mesh-setup.ts",
+    "mesh:demo": "tsx src/mesh-demo.ts",
+    "report": "tsx src/gen-report.ts",
+    "agent": "tsx src/agent-buyer.ts"
+  },
+  "dependencies": {
+    "@terminal3/t3n-sdk": "^3.5.0",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "playwright": "^1.60.0",
+    "tsx": "^4.16.0",
+    "typescript": "^5.5.0"
+  }
+}
