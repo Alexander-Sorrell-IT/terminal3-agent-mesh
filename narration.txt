@@ -1,0 +1,1 @@
+This is Terminal 3 Agent Mesh. An autonomous A.I. agent is told to grab as much compute as it can, but it's governed by a hardware enclave it cannot bypass. It tries fifty thousand dollars: denied. Ten thousand: denied. It probes down, finds what's allowed, and fills the budget, and it never once sees the payment secret. Agent autonomy you can put in front of a bank.

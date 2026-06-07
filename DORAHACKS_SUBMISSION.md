@@ -33,7 +33,7 @@ Enterprises (banks, governments, institutions) won't let autonomous agents touch
 The live demo runs both roles under one funded testnet identity (self-governance) — making the buyer a separate identity is a config swap blocked only by non-transferable testnet credits (documented). The audit trail is contract-written/append-only; the owning tenant retains control-plane access. Full detail in `SUBMISSION.md`.
 
 ## Links
-- **Demo video:** `agent-demo.mp4` (animated `agent-demo.gif`) — the autonomous agent vs governance, on testnet
+- **Demo video (YouTube):** https://youtu.be/P2X1K5yTmt8 — the autonomous agent vs governance, on testnet
 - Code + writeup: `SUBMISSION.md`
 - Demo report image: `agent-report.png` / `demo-report.png`
 - Developer-experience findings (for the $200 track): `BUGS_AND_GAPS.md` (~40 bugs & doc gaps, many empirically verified against the live SDK)

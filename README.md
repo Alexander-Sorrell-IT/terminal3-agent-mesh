@@ -6,7 +6,7 @@ Built on the [Terminal 3 Agent Dev Kit](https://docs.terminal3.io) (`@terminal3/
 
 ![Autonomous AI agent vs Terminal 3 governance](./agent-demo.gif)
 
-▶️ **Demo video:** [`agent-demo.mp4`](./agent-demo.mp4) — a real LLM agent tries to overspend on Terminal 3 testnet and gets hardware-blocked. *(Static report: [`agent-report.png`](./agent-report.png).)*
+▶️ **Demo video (YouTube): https://youtu.be/P2X1K5yTmt8** — a real LLM agent tries to overspend on Terminal 3 testnet and gets hardware-blocked. *(Local copies: `agent-demo.mp4` / `.gif`; static report: [`agent-report.png`](./agent-report.png).)*
 
 ## The idea
 
