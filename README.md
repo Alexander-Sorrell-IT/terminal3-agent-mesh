@@ -4,7 +4,9 @@
 
 Built on the [Terminal 3 Agent Dev Kit](https://docs.terminal3.io) (`@terminal3/t3n-sdk`), running live on Terminal 3 testnet. Submission for the T3 Agent Dev Kit Bounty Challenge.
 
-![Autonomous AI agent governed by Terminal 3](./agent-report.png)
+![Autonomous AI agent vs Terminal 3 governance](./agent-demo.gif)
+
+▶️ **Demo video:** [`agent-demo.mp4`](./agent-demo.mp4) — a real LLM agent tries to overspend on Terminal 3 testnet and gets hardware-blocked. *(Static report: [`agent-report.png`](./agent-report.png).)*
 
 ## The idea
 

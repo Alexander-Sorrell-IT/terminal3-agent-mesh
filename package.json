@@ -10,7 +10,9 @@
     "mesh:setup": "tsx src/mesh-setup.ts",
     "mesh:demo": "tsx src/mesh-demo.ts",
     "report": "tsx src/gen-report.ts",
-    "agent": "tsx src/agent-buyer.ts"
+    "agent": "tsx src/agent-buyer.ts",
+    "cast": "tsx src/gen-cast.ts",
+    "video": "tsx src/gen-cast.ts agent-transcript.json cast.html && tsx src/record-cast.ts cast.html agent-demo.webm"
   },
   "dependencies": {
     "@terminal3/t3n-sdk": "^3.5.0",

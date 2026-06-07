@@ -8,6 +8,8 @@ Built on the Terminal 3 Agent Dev Kit (`@terminal3/t3n-sdk`), running on Termina
 
 *A real LLM agent (`npm run agent`) tries to overspend, is hardware-blocked by the TEE, discovers what's allowed, and complies — without ever seeing the payment secret. (`demo-report.png` shows the full scripted governance matrix.)*
 
+▶️ **Demo video: [`agent-demo.mp4`](./agent-demo.mp4)** (also `agent-demo.gif`) — the agent run above, recorded on Terminal 3 testnet.
+
 ---
 
 ## The problem
