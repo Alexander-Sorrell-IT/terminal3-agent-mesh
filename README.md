@@ -63,6 +63,14 @@ npm run report       # render the HTML/PNG report
 | `SUBMISSION.md` | Full writeup (problem, architecture, honest scope, trust model) |
 | `BUGS_AND_GAPS.md` | ~40 developer-experience findings filed during the build (the $200 track) |
 
+## Links
+
+- ▶️ Demo video (YouTube): https://youtu.be/P2X1K5yTmt8
+- 🐦 X / Twitter: https://x.com/AlexSorrellIT/status/2063592054693785941
+- 📸 Instagram: https://www.instagram.com/p/DZSKOvwMWYZ/
+- 🌐 Built on Terminal 3: https://www.terminal3.io
+- 📝 Dev-experience findings ($200 track): [`BUGS_AND_GAPS.md`](./BUGS_AND_GAPS.md)
+
 ## Honest scope
 
 The live demo runs both roles under one funded testnet identity (self-governance) — making the buyer a separate identity is a config swap blocked only by non-transferable testnet credits. The audit trail is contract-written/append-only; the owning tenant retains control-plane access. Details in `SUBMISSION.md`.
