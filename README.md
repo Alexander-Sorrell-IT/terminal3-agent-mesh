@@ -63,6 +63,12 @@ npm run report       # render the HTML/PNG report
 | `SUBMISSION.md` | Full writeup (problem, architecture, honest scope, trust model) |
 | `BUGS_AND_GAPS.md` | ~40 developer-experience findings filed during the build (the $200 track) |
 
+## Submission
+
+Submitted to the **Terminal 3 Agent Dev Kit Bounty Challenge** on DoraHacks, across both tracks:
+- 🏗️ **Build track** — *Terminal 3 Agent Mesh* (this project: the autonomous, hardware-governed agent).
+- 🐞 **Developer-experience track** — *Terminal 3 ADK — Developer Experience Report* (~40 verified bugs & doc gaps, see [`BUGS_AND_GAPS.md`](./BUGS_AND_GAPS.md)).
+
 ## Links
 
 - ▶️ Demo video (YouTube): https://youtu.be/P2X1K5yTmt8
